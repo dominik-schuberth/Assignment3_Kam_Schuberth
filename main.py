@@ -8,9 +8,13 @@ import xlsxwriter as xlsx
 
 dataset = pd.read_csv('input.csv',delimiter=";", header = None, skiprows=2)
 X = np.array(dataset)
+einlesen = open("input.csv",encoding='utf-8-sig')
+K = einlesen.readline()
+K= K.strip()
+K = K.replace(";", "")
+K= int(K)
 
-
-init_centroids = rd.sample(range(0, len(dataset)), 3)
+init_centroids = rd.sample(range(0, len(dataset)), K)
 
 
 centroids = []
