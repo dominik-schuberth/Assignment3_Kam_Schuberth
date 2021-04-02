@@ -8,13 +8,9 @@ import xlsxwriter as xlsx
 
 dataset = pd.read_csv('input.csv',delimiter=";", header = None, skiprows=2)
 X = np.array(dataset)
-einlesen = open("input.csv",encoding='utf-8-sig')
-K = einlesen.readline()
-K= K.strip()
-K = K.replace(";", "")
-K= int(K)
 
-init_centroids = rd.sample(range(0, len(dataset)), K)
+
+init_centroids = rd.sample(range(0, len(dataset)), 3)
 
 
 centroids = []
@@ -22,6 +18,7 @@ for i in init_centroids:
     centroids.append(dataset.loc[i])
 
 centroids = np.array(centroids)
+firstcentroids = centroids
 print("centroids:", centroids)
 
 
@@ -71,8 +68,10 @@ for i in range(number_of_iterations):
     plt.ylabel('y')
     plt.xlabel('x')
     plt.scatter(np.array(centroids)[:, 0], np.array(centroids)[:, 1], color='red')
+    changes =np.array(centroids)
     plt.scatter(X[:, 0], X[:, 1], color='blue')
     plt.show()
+    print("Test")
 
 
 workbook = xlsx.Workbook('Output.xlsx')
