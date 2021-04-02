@@ -58,9 +58,13 @@ get_centroids = closestCentroid(centroids, X)
 centroids = calc_new_centroids(get_centroids, X)
 print(centroids)
 changes = np.array([[0,0],[0,0], [0,0]])
-number_of_iterations = 10
+#number_of_iterations = 10
+number_of_iterations =0
+equal_arrays=False
 
-for i in range(number_of_iterations):
+while not equal_arrays and number_of_iterations<20:
+#while number_of_iterations<11:
+#for i in range(number_of_iterations):
     get_centroids = closestCentroid(centroids, X)
     centroids = calc_new_centroids(get_centroids, X)
     neu = np.array(centroids)
@@ -69,14 +73,17 @@ for i in range(number_of_iterations):
     equal_arrays = comparison.all()
     print("Same or not?")
     print(equal_arrays)
-    plt.figure(i)
+   # plt.figure(i)
+    plt.figure(number_of_iterations)
     plt.ylabel('y')
     plt.xlabel('x')
     plt.scatter(np.array(centroids)[:, 0], np.array(centroids)[:, 1], color='red')
     changes =np.array(centroids)
     plt.scatter(X[:, 0], X[:, 1], color='blue')
     plt.show()
-    print("Test")
+    print("Runned: ")
+    print(number_of_iterations)
+    number_of_iterations+=1
 
 
 workbook = xlsx.Workbook('Output.xlsx')
