@@ -22,10 +22,9 @@ firstcentroids = centroids
 print("centroids:", centroids)
 
 
-
 #   calculate the manhattan distance
 def CalcDistance(x1, x2):
-    return(sum(abs(x1 - x2)))
+    return sum(abs(x1 - x2))
 
 
 #   calculate the closest centroid
@@ -46,6 +45,8 @@ def calc_new_centroids(clusters, X):
     newDataset = pd.concat([pd.DataFrame(X), pd.DataFrame(clusters, columns=['cluster'])], axis=1)
     print("newdata:", newDataset)
     print("newdatacluster:", newDataset['cluster'])
+
+
     for x in set(newDataset['cluster']):
         currentCluster = newDataset[newDataset['cluster'] == x][newDataset.columns[:-1]]
         print("currentcluster:", currentCluster)
@@ -57,12 +58,12 @@ def calc_new_centroids(clusters, X):
 get_centroids = closestCentroid(centroids, X)
 centroids = calc_new_centroids(get_centroids, X)
 print(centroids)
-changes = np.array([[0,0],[0,0], [0,0]])
-#number_of_iterations = 10
-number_of_iterations =0
-equal_arrays=False
+changes = np.array([[0, 0], [0, 0], [0, 0]])
 
-while not equal_arrays and number_of_iterations<20:
+number_of_iterations =0
+equal_arrays = False
+
+while not equal_arrays and number_of_iterations < 20:
 #while number_of_iterations<11:
 #for i in range(number_of_iterations):
     get_centroids = closestCentroid(centroids, X)
@@ -73,17 +74,16 @@ while not equal_arrays and number_of_iterations<20:
     equal_arrays = comparison.all()
     print("Same or not?")
     print(equal_arrays)
-   # plt.figure(i)
     plt.figure(number_of_iterations)
     plt.ylabel('y')
     plt.xlabel('x')
     plt.scatter(np.array(centroids)[:, 0], np.array(centroids)[:, 1], color='red')
-    changes =np.array(centroids)
+    changes = np.array(centroids)
     plt.scatter(X[:, 0], X[:, 1], color='blue')
     plt.show()
     print("Runned: ")
     print(number_of_iterations)
-    number_of_iterations+=1
+    number_of_iterations += 1
 
 
 workbook = xlsx.Workbook('Output.xlsx')
@@ -112,9 +112,11 @@ worksheet.write(row+5, column+1, 2)
 for i in range(18):
     worksheet.write(row+6, column+1, X[i][0])
     row += 1
-# for i in range(18):
-#     worksheet.write(row + 6, column + 2, X[0][i])
-#     row += 1
+
+row = 6
+for i in range(18):
+    worksheet.write(row, column + 2, X[i][1])
+    row += 1
 
 
 workbook.close()
