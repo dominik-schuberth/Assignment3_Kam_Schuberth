@@ -57,13 +57,18 @@ def calc_new_centroids(clusters, X):
 get_centroids = closestCentroid(centroids, X)
 centroids = calc_new_centroids(get_centroids, X)
 print(centroids)
-
+changes = np.array([[0,0],[0,0], [0,0]])
 number_of_iterations = 10
 
 for i in range(number_of_iterations):
     get_centroids = closestCentroid(centroids, X)
     centroids = calc_new_centroids(get_centroids, X)
+    neu = np.array(centroids)
 
+    comparison = neu == changes
+    equal_arrays = comparison.all()
+    print("Same or not?")
+    print(equal_arrays)
     plt.figure(i)
     plt.ylabel('y')
     plt.xlabel('x')
