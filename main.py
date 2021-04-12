@@ -4,6 +4,7 @@ import random as rd
 import pandas as pd
 import matplotlib.pyplot as plt
 import xlsxwriter as xlsx
+import csv
 
 
 dataset = pd.read_csv('input.csv',delimiter=";", header = None, skiprows=2)
@@ -35,7 +36,7 @@ def closestCentroid(centroids, X):
         for j in centroids:
             distance.append(CalcDistance(i, j))
             print("distance:", distance)
-        nearestCentroid.append(np.argmin(distance)+1)   #   determines the lowest distance to the 3 centroids; we want 1,2,3 and not 0,1,2 --> so +1
+        nearestCentroid.append(np.argmin(distance)+1)  # determines the lowest distance to the 3 centroids; we want 1,2,3 and not 0,1,2 --> so +1
     return nearestCentroid
 
 
@@ -43,8 +44,8 @@ def closestCentroid(centroids, X):
 def calc_new_centroids(clusters, X):
     newCentroids = []
     newDataset = pd.concat([pd.DataFrame(X), pd.DataFrame(clusters, columns=['cluster'])], axis=1)
-    print("newdata:", newDataset)
-    print("newdatacluster:", newDataset['cluster'])
+    print("newdata: \n", newDataset)
+    print("newdatacluster: \n", newDataset['cluster'])
 
 
     for x in set(newDataset['cluster']):
@@ -55,17 +56,15 @@ def calc_new_centroids(clusters, X):
         newCentroids.append(mean)
     return newCentroids
 
+
 get_centroids = closestCentroid(centroids, X)
 centroids = calc_new_centroids(get_centroids, X)
 print(centroids)
 changes = np.array([[0, 0], [0, 0], [0, 0]])
-
-number_of_iterations =0
+number_of_iterations = 0
 equal_arrays = False
 
 while not equal_arrays and number_of_iterations < 20:
-#while number_of_iterations<11:
-#for i in range(number_of_iterations):
     get_centroids = closestCentroid(centroids, X)
     centroids = calc_new_centroids(get_centroids, X)
     neu = np.array(centroids)
@@ -84,6 +83,8 @@ while not equal_arrays and number_of_iterations < 20:
     print("Runned: ")
     print(number_of_iterations)
     number_of_iterations += 1
+
+
 
 
 workbook = xlsx.Workbook('Output.xlsx')
@@ -118,10 +119,9 @@ for i in range(18):
     worksheet.write(row, column + 2, X[i][1])
     row += 1
 
+row = 6
+for i in range(18):
+    worksheet.write(row, column, get_centroids[i])
+    row += 1
 
 workbook.close()
-
-
-#getCentroids = closestCentroid(centroids, X)
-#print(getCentroids)
-#calc_new_centroids(getCentroids, X)
