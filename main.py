@@ -1,3 +1,5 @@
+#Assignment by Dorothea Kam and Dominik Schuberth
+#it creates 2 Outputfiles (read below why)
 #https://medium.com/machine-learning-algorithms-from-scratch/k-means-clustering-from-scratch-in-python-1675d38eee42import pandas as pd
 import numpy as np
 import random as rd
@@ -85,7 +87,26 @@ while not equal_arrays and number_of_iterations < 20:
     number_of_iterations += 1
 
 
+#The CSV Output2file: when opened using excel, the values are in 1 column...
+#thats why we created another Output version with xlsx, where the values in excel are in sepearte columns :)
+import csv
+with open('Output2.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+#   [number of clusters]
+    writer.writerow(["3"])
+#   [list of the positions of the seed points]
+    writer.writerow([centroids[0][0], centroids[0][1]])
+    writer.writerow([centroids[1][0], centroids[1][1]])
+    writer.writerow([centroids[2][0], centroids[2][1]])
 
+#   [number of iterations]
+    writer.writerow([number_of_iterations])
+
+#   [number of data entries] [number of dimensions]
+    writer.writerow([18,2])
+
+    for i in range(18):
+        writer.writerow([get_centroids[i],X[i][0],X[i][1]])
 
 workbook = xlsx.Workbook('Output.xlsx')
 worksheet = workbook.add_worksheet("Output")
@@ -125,3 +146,9 @@ for i in range(18):
     row += 1
 
 workbook.close()
+
+
+
+
+
+
