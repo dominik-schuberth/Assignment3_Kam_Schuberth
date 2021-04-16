@@ -1,6 +1,14 @@
-#Assignment by Dorothea Kam and Dominik Schuberth
-#it creates 2 Outputfiles (read below why)
-#https://medium.com/machine-learning-algorithms-from-scratch/k-means-clustering-from-scratch-in-python-1675d38eee42import pandas as pd
+# Assignment by Dorothea Kam and Dominik Schuberth
+# Link to github: https://github.com/dominik-schuberth/Assignment3_Kam_Schuberth.git
+
+# For this code's idea please see the flowchart attached.
+# We created an additional outputfile: one csv as required, and one xlsx because the csv-file values are all in column when opened with excel.
+# The xlsx file shows the values in separate values.
+
+# it creates 2 Outputfiles (read below why)
+
+# https://medium.com/machine-learning-algorithms-from-scratch/k-means-clustering-from-scratch-in-python-1675d38eee42import pandas as pd
+
 import numpy as np
 import random as rd
 import pandas as pd
